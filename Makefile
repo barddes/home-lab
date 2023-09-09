@@ -14,7 +14,7 @@ partition-disk:
 	parted -s /dev/nvme0n1 set 1 lvm on
 
 .PHONY: lvm-setup
-lvm-setup: partition-disk
+lvm-setup:
 	pvcreate -ff -y /dev/nvme0n1p1
 	vgcreate jedric /dev/nvme0n1p1
 	lvcreate -L 1G jedric -n boot -y
@@ -25,3 +25,16 @@ format-partitions:
 	mkfs.ext4 /dev/jedric/core
 	mkfs.fat -F32 /dev/jedric/boot
 
+.PHONY: .arch-mount-partitions
+.arch-mount-partitions:
+	mount /dev/jedric/core /mnt
+	mount --mkdir /dev/jedric/boot /mnt/boot
+
+.PHONY: .arch-install-system
+.arch-install-system:
+	pacstrap -K /mnt base linux  linux-firmware
+	genfstab -U /mnt >> /mnt/etc/fstab
+
+
+
+	
