@@ -20,3 +20,8 @@ lvm-setup: partition-disk
 	lvcreate -L 1G jedric -n boot -y
 	lvcreate -L 8G jedric -n core -y
 
+.PHONY: format-partitions
+format-partitions:
+	mkfs.ext4 /dev/jedriv/core
+	mkfs.fat -F32 /dev/jedric/boot
+
