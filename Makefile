@@ -29,7 +29,7 @@ lvm-setup: partition-disk
 .PHONY: format-partitions
 format-partitions:
 	mkfs.fat -F32 /dev/nvme0n1p1
-	mkfs.ext4 /dev/jedric/core
+	mkfs.ext4 -F /dev/jedric/core
 
 .PHONY: .arch-all
 .arch-all: .arch-mount-partitions .arch-install-system .arch-bootstrap .arch-clean
