@@ -10,25 +10,26 @@ network:
 .PHONY: partition-disk
 partition-disk:
 	parted -s /dev/nvme0n1 mklabel gpt
-	parted -s /dev/nvme0n1 mkpart lvm ext4 0% 100%
-	parted -s /dev/nvme0n1 set 1 lvm on
+	parted -s /dev/nvme0n1 mkpart boot fat32 0% 1G
+	parted -s /dev/nvme0n1 mkpart lvm ext4 1G 100%
+	parted -s /dev/nvme0n1 set 1 boot on
+	parted -s /dev/nvme0n1 set 2 lvm on
 
 .PHONY: lvm-setup
 lvm-setup:
-	pvcreate -ff -y /dev/nvme0n1p1
-	vgcreate jedric /dev/nvme0n1p1
-	lvcreate -L 1G jedric -n boot -y
+	pvcreate -ff -y /dev/nvme0n1p2
+	vgcreate jedric /dev/nvme0n1p2
 	lvcreate -L 8G jedric -n core -y
 
 .PHONY: format-partitions
 format-partitions:
+	mkfs.fat -F32 /dev/nvme0n1p1
 	mkfs.ext4 /dev/jedric/core
-	mkfs.fat -F32 /dev/jedric/boot
 
 .PHONY: .arch-mount-partitions
 .arch-mount-partitions:
 	mount /dev/jedric/core /mnt
-	mount --mkdir /dev/jedric/boot /mnt/boot
+	mount --mkdir /dev/nvme0n1p1 /mnt/boot
 
 .PHONY: .arch-install-system
 .arch-install-system:
