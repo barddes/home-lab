@@ -5,6 +5,10 @@ Hardware envolvido:
   - Processador AMD (+GPU integrada)
   - GPU NVIDIA dedicada
 
+Pre-requisitos:
+  - Conexao com a internet
+  - make instalado
+
 Etapas: 
   - [ ] Instalacao do servidor para virtualizacao
   - [ ] Instalacao e configuracao do libvirt
