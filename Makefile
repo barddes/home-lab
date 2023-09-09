@@ -1,5 +1,5 @@
-.PHONY: install install-dependencies setup arch-all arch-i3
-install: install-dependencies setup arch-all arch-i3
+.PHONY: install install-dependencies setup arch-all
+install: install-dependencies setup arch-all
 
 install-dependencies:
 	pacman-key --init
@@ -18,8 +18,8 @@ setup:
 	lvcreate -L 8G jedric -n core -y
 	mkfs.ext4 -F /dev/jedric/core
 
-.PHONY: arch-all arch-mount-partitions arch-install-system arch-clean-install
-arch-all: arch-mount-partitions arch-install-system arch-clean-install
+.PHONY: arch-all arch-mount-partitions arch-install-system arch-i3 arch-clean-install
+arch-all: arch-mount-partitions arch-install-system arch-i3 arch-clean-install
 
 arch-mount-partitions:
 	mount /dev/jedric/core /mnt
@@ -30,10 +30,10 @@ arch-install-system:
 	genfstab -U /mnt >> /mnt/etc/fstab
 	arch-chroot /mnt < scripts/arch-bootstrap.sh
 
+arch-i3:
+	arch-chroot /mnt < scripts/arch-i3.sh
+
 arch-clean:
 	umount -R /mnt
 
-arch-i3:
-	chmod +x scripts/*.sh
-	./scripts/install-i3.sh
 
