@@ -6,10 +6,10 @@ Hardware envolvido:
   - GPU NVIDIA dedicada
 
 Etapas: 
-  - [ ] Instalacao do servidor
+  - [ ] Instalacao do servidor para virtualizacao
   - [ ] Instalacao e configuracao do libvirt
   - [ ] Configuracoes para passthrough da GPU Nvidia
-  - [ ] Instalacao e configuracao:
+  - [ ] Instalacoes e configuracoes:
     - [ ] Windows (+nvidia)
 
 Proximos passos:
