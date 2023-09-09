@@ -38,3 +38,7 @@ format-partitions:
 .PHONY: .arch-bootstrap
 .arch-bootstrap:
 	arch-chroot /mnt < scripts/arch-bootstrap.sh
+
+.PHONY: .arch-clean
+.arch-clean:
+	umount -R /mnt
