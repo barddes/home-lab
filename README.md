@@ -11,7 +11,7 @@ Pre-requisitos:
   - `make` instalado
 
 Etapas: 
-  - [ ] Instalacao do servidor para virtualizacao
+  - [x] Instalacao do servidor para virtualizacao
   - [ ] Instalacao e configuracao do libvirt
   - [ ] Configuracoes para passthrough da GPU Nvidia
   - [ ] Instalacoes e configuracoes:
