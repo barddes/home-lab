@@ -1,5 +1,13 @@
 .PHONY: all
-all: lvm-setup format-partitions .arch-all
+all: arch-post-install
+
+.PHONY: arch-post-install
+arch-post-install:
+	chmod +x scripts/*.sh
+	./scripts/install-i3.sh
+
+.PHONY: format-all
+format-all: lvm-setup format-partitions .arch-all
 
 .PHONY: install-dependencies
 install-dependencies:
