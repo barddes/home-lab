@@ -1,5 +1,6 @@
 .PHONY: install-dependencies
 install-dependencies:
+	pacman-key --init
 	pacman -Sy --noconfirm git ranger make
 
 .PHONY: network
