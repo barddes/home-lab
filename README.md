@@ -7,7 +7,8 @@ Hardware envolvido:
 
 Pre-requisitos:
   - Conexao com a internet
-  - make instalado
+  - Disco `/dev/nvme0n1` limpo (sem LVM)
+  - `make` instalado
 
 Etapas: 
   - [ ] Instalacao do servidor para virtualizacao
