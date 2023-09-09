@@ -1,7 +1,5 @@
-.PHONY: install install-dependencies setup arch-all configure arch-i3
-install: install-dependencies setup arch-all
-
-configure: arch-i3
+.PHONY: install install-dependencies setup arch-all arch-i3
+install: install-dependencies setup arch-all arch-i3
 
 install-dependencies:
 	pacman-key --init
