@@ -22,6 +22,6 @@ lvm-setup: partition-disk
 
 .PHONY: format-partitions
 format-partitions:
-	mkfs.ext4 /dev/jedriv/core
+	mkfs.ext4 /dev/jedric/core
 	mkfs.fat -F32 /dev/jedric/boot
 
