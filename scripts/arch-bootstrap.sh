@@ -5,8 +5,8 @@ sed -i -E 's/#(pt_BR.UTF-8 UTF-8)/\1/' /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "jedric" > /etc/hostname
+pacman -Sy --noconfirm --needed grub efibootmgr os-prober ranger vim git curl wget iw iwd wireless_tools man-db man-pages texinfo dhcpcd amd-ucode lvm2
 mkinitcpio -P
 echo 'root:root' | chpasswd
-pacman -Sy --noconfirm --needed grub efibootmgr os-prober ranger vim git curl wget iw iwd wireless_tools man-db man-pages texinfo dhcpcd amd-ucode
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
