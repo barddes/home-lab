@@ -1,6 +1,6 @@
-.PHONY: set-permissions
-set-permissions:
-	chmod +x scripts/*/*.sh
+.PHONY: install-dependencies
+install-dependencies:
+	pacman -Sy --noconfirm git ranger make
 
 .PHONY: network
 network:
@@ -16,5 +16,6 @@ partition-disk:
 lvm-setup: partition-disk
 	pvcreate -ff -y /dev/nvme0n1p1
 	vgcreate jedric /dev/nvme0n1p1
-	lvcreate -L 8G jedric -n host
+	lvcreate -L 1G jedric -n boot -y
+	lvcreate -L 8G jedric -n core -y
 
