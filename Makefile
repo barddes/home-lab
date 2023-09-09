@@ -35,5 +35,6 @@ arch-i3:
 
 arch-clean:
 	umount -R /mnt
+	reboot
 
 
