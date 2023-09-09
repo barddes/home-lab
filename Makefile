@@ -16,7 +16,7 @@ partition-disk:
 	parted -s /dev/nvme0n1 mkpart boot fat32 0% 1G
 	parted -s /dev/nvme0n1 mkpart lvm ext4 1G 100%
 	mkfs.fat -F32 /dev/nvme0n1p1
-	mkfs.ext4 /dev/nvme0n1p2
+	mkfs.ext4 -F /dev/nvme0n1p2
 	parted -s /dev/nvme0n1 set 1 boot on
 	parted -s /dev/nvme0n1 set 2 lvm on
 
