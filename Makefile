@@ -1,3 +1,6 @@
+.PHONY: all
+all: lvm-setup format-partitions .arch-all
+
 .PHONY: install-dependencies
 install-dependencies:
 	pacman-key --init
@@ -16,7 +19,7 @@ partition-disk:
 	parted -s /dev/nvme0n1 set 2 lvm on
 
 .PHONY: lvm-setup
-lvm-setup:
+lvm-setup: partition-disk
 	pvcreate -ff -y /dev/nvme0n1p2
 	vgcreate jedric /dev/nvme0n1p2
 	lvcreate -L 8G jedric -n core -y
@@ -25,6 +28,9 @@ lvm-setup:
 format-partitions:
 	mkfs.fat -F32 /dev/nvme0n1p1
 	mkfs.ext4 /dev/jedric/core
+
+.PHONY: .arch-all
+.arch-all: .arch-mount-partitions .arch-install-system .arch-bootstrap .arch-clean
 
 .PHONY: .arch-mount-partitions
 .arch-mount-partitions:
