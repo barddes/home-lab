@@ -35,6 +35,6 @@ format-partitions:
 	pacstrap -K /mnt base linux  linux-firmware
 	genfstab -U /mnt >> /mnt/etc/fstab
 
-
-
-	
+.PHONY: .arch-bootstrap
+.arch-bootstrap:
+	arch-chroot /mnt < scripts/arch-bootstrap.sh
