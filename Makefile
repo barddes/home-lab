@@ -1,10 +1,7 @@
-.PHONY: all install-dependencies setup arch-all
-all: setup arch-all
+.PHONY: install install-dependencies setup arch-all configure arch-i3
+install: install-dependencies setup arch-all
 
-.PHONY: arch-post-install
-arch-post-install:
-	chmod +x scripts/*.sh
-	./scripts/install-i3.sh
+configure: arch-i3
 
 install-dependencies:
 	pacman-key --init
@@ -37,3 +34,8 @@ arch-install-system:
 
 arch-clean:
 	umount -R /mnt
+
+arch-i3:
+	chmod +x scripts/*.sh
+	./scripts/install-i3.sh
+
