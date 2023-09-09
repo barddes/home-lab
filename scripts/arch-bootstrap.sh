@@ -9,4 +9,4 @@ mkinitcpio -P
 echo 'root:root' | chpasswd
 pacman -Sy --noconfirm grub efibootmgr os-prober ranger vim git curl wget iw iwd wireless_tools man-db man-pages texinfo dhcpcd amd-ucode
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
-grub-mkconfigo -o /boot/grub/grub.cfg
+grub-mkconfig -o /boot/grub/grub.cfg
