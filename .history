@@ -1,0 +1,280 @@
+    1  ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+    2  hwclock --systohc
+    3  sed -i -E 's/#(en_US.UTF-8 UTF-8)/\1/' /etc/locale.gen
+    4  sed -i -E 's/#(pt_BR.UTF-8 UTF-8)/\1/' /etc/locale.gen
+    5  locale-gen
+    6  echo "LANG=en_US.UTF-8" > /etc/locale.conf
+    7  echo "jedric" > /etc/hostname
+    8  pacman -Sy --noconfirm --needed grub efibootmgr os-prober ranger vim git curl wget iw iwd wireless_tools man-db man-pages texinfo dhcpcd amd-ucode lvm2
+    9  sed -i 's/^\(HOOKS=.*\)\(block filesystems\)/\1block lvm2 filesystems/' /etc/mkinitcpio.conf
+   10  mkinitcpio -P
+   11  echo 'root:root' | chpasswd
+   12  grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+   13  grub-mkconfig -o /boot/grub/grub.cfg
+   14  systemctl enable iwd
+   15  systemctl enable dhcpcd
+   16  #!/bin/bash
+   17  pacman -Sy --noconfirm xorg xf86-video-amdgpu xorg-xinit i3-wm lightdm dmenu lightdm-gtk-greeter
+   18  echo "exec i3" > $HOME/.xinit
+   19  systemctl enable lightdm
+   20  startx
+   21  pacman -S alacritty
+   22  pacman -Sy alacritty
+   23  ip a
+   24  iwctl station list
+   25  reboot
+   26  pacman -S firefox
+   27  pacman -S i3status
+   28  vim .config/i3/config 
+   29  pacman -S libvirt
+   30  pacman -S virsh
+   31  pacman -S qemu-base
+   32  LC_ALL=C lscpu | grep Virtualization
+   33  lsmod | grep kvm
+   34  pacman -S iptables-nft
+   35  systemctl start libvirtd virtlogd
+   36  virsh
+   37  pacman -S virt-manager
+   38  pacman -S blivet-gui
+   39  system-config-lvm
+   40  history | less
+   41  #!/bin/bash
+   42  shopt -s nullglob
+   43  for g in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V); do     echo "IOMMU Group ${g##*/}:";     for d in $g/devices/*; do         echo -e "\t$(lspci -nns ${d##*/})";     done; done;
+   44  MODULES=()
+   45  MODULES+=(all)
+   46  echo $MODULES
+   47  MODULES+=(all1)
+   48  MODULES+=(all2)
+   49  MODULES+=(all3)
+   50  echo $MODULES
+   51  echo $MODULES[@]
+   52  echo $MODULES[@]
+   53  echo ${MODULES[@]}
+   54  MODULES=()
+   55  MODULES+=(all ale elas)
+   56  echo ${MODULES[@]}
+   57  MODULES+=(all ale elas)
+   58  echo ${MODULES[@]}
+   59  MODULES+=(all)
+   60  MODULES=(all)
+   61  MODULES=(temp ${MODULES[@]})
+   62  echo ${MODULES[@]}
+   63  MODULES+=(all ale elas)
+   64  MODULES=(tem222p ${MODULES[@]})
+   65  echo ${MODULES[@]}
+   66  vim /etc/mkinitcpio.conf
+   67  sed 's/amd_iommu=on//' /etc/default/grub
+   68  sed 's/amd_iommu=on//' /etc/default/grub | grep LINUX_DEFAULT
+   69  sed 's/amd_iommu=os//' /etc/default/grub | grep LINUX_DEFAULT
+   70  cat /etc/default/grub
+   71  vim /etc/default/grub
+   72  sed 's/amd_iommu=os//' /etc/default/grub | grep LINUX_DEFAULT
+   73  sed 's/amd_iommu=on//' /etc/default/grub | grep LINUX_DEFAULT
+   74  sed 's/amd_iommu=on"//' /etc/default/grub | grep LINUX_DEFAULT
+   75  sed 's/(amd_iommu=on)"//' /etc/default/grub | grep LINUX_DEFAULT
+   76  sed 's/\(amd_iommu=on\)"//' /etc/default/grub | grep LINUX_DEFAULT
+   77  sed 's/\(?!amd_iommu=on\)"//' /etc/default/grub | grep LINUX_DEFAULT
+   78  vim /etc/default/grub 
+   79  sed 's/\(?!amd_iommu=on\)"//' /etc/default/grub | grep LINUX_DEFAULT
+   80  sed 's/\(\?\!amd_iommu=on\)"//' /etc/default/grub | grep LINUX_DEFAULT
+   81  sed '/amd_iommu=/! s/\(\?\!amd_iommu=on\)"//' /etc/default/grub | grep LINUX_DEFAULT
+   82  echo $?
+   83  sed '/amd_iommu=/! s/test//' /etc/default/grub | grep LINUX_DEFAULT
+   84  vim /etc/default/grub
+   85  sed '/amd_iommu=/! s/test//' /etc/default/grub | grep LINUX_DEFAULT
+   86  echo $?
+   87  sed '/amd_u=/! s/test//' /etc/default/grub | grep LINUX_DEFAULT
+   88  echo $?
+   89  ip a
+   90  systemctl start dhcpcd
+   91  ip a
+   92  ip a
+   93  ip a
+   94  ip r
+   95  ip r
+   96  ip a
+   97  ip a
+   98  iwctl station list
+   99  iwctl station wlan0 connect FUNDAO
+  100  pacman -S git
+  101  pacman -S alacritty
+  102  history | less
+  103  ssh-keygen
+  104  pacman -S openssh
+  105  df -hT
+  106  lvextend
+  107  lvextend --help
+  108  lvscan
+  109  lvextend -l +4G /dev/jedric/core
+  110  lvextend +4G /dev/jedric/core
+  111  lvextend /dev/jedric/core
+  112  lvextend /dev/jedric/core --help
+  113  lvextend -L +4G /dev/jedric/core --help
+  114  lvextend -L +4G /dev/jedric/core
+  115  df -hT
+  116  lsblk
+  117  lvscan
+  118  lvextend -L +4G /dev/jedric/core
+  119  lsblk
+  120  df -hT
+  121  e2fsck -f /dev/jedric/core
+  122  resize2fs /dev/jedric/core
+  123  df -hT
+  124  pacman -S openssh
+  125  ssh-keygen 
+  126  cat .ssh/id_rsa.pub 
+  127  git clone git@github.com:barddes/home-lab.git
+  128  cd home-lab/
+  129  ranger
+  130  ranger
+  131  chmod +x libvirt.sh 
+  132  cat libvirt.sh 
+  133  ./libvirt.sh 
+  134  pacman -S mkinitcpio
+  135  vim /etc/mkinitcpio.conf
+  136  rm /etc/mkinitcpio.conf
+  137  pacman -S mkinitcpio
+  138  vim /etc/mkinitcpio.conf
+  139  ./libvirt.sh 
+  140  git status
+  141  git add .
+  142  git status
+  143  git commit -m "update" 
+  144  git config --global user.email "barddes@gmail.com"
+  145  git config --global user.name "Cesar Bueno"
+  146  git commit -m "update" 
+  147  git push
+  148  vim /etc/default/grub 
+  149  cat /etc/default/grub
+  150  sed 's/^\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 amd_iommu=on"/' /etc/default/grub
+  151  vim /etc/modules
+  152  #!/bin/bash
+  153  shopt -s nullglob
+  154  for g in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V); do     echo "IOMMU Group ${g##*/}:";     for d in $g/devices/*; do         echo -e "\t$(lspci -nns ${d##*/})";     done; done;
+  155  vim /etc/modprobe.d/
+  156  vim /etc/modprobe.d/vfio.conf
+  157  update-iniramfs
+  158  update-initramfs
+  159  reboot
+  160  ranger
+  161  dmesg
+  162  dmesg | less
+  163  lspci -nnk | grep VGA -A2
+  164  reboot
+  165  reboot
+  166  virsh
+  167  virsh net-autostart --network default
+  168  lvextend -L +15G /dev/jedric/core
+  169  resize2fs /dev/jedric/core
+  170  df -hT
+  171  docker ps
+  172  docker kill goofy_euler
+  173  ip a
+  174  pvscan
+  175  lvscan
+  176  virsh net-autostart --network default
+  177  virsh net-start default
+  178  pacman -S dnsmasq
+  179  virsh net-start default
+  180  docker ps
+  181  docker kill sweet_knuth
+  182  pacman -S docker
+  183  df -hT
+  184  history | less
+  185  pacman -S docker
+  186  systemctl start docker
+  187  docker ps
+  188  docker run -p 8080 mirkesx/bomberman
+  189  docker run -p 8080:8080 mirkesx/bomberman
+  190  iwctl station wlan0 connect FUNDAO_5G
+  191  iwctl station wlan0 connect FUNDAO_5G
+  192  iwctl station list
+  193  iwctl station list
+  194  iwctl station list
+  195  iwctl station list
+  196  iwctl station list
+  197  iwctl station wlan0 connect FUNDAO_5G
+  198  iwctl station list
+  199  sudo pacman -S bluez bluez-utils blueman
+  200  pacman -S bluez bluez-utils blueman
+  201  systemctl start bluetooth
+  202  bluetoothctl
+  203  pacman -S pipewire-pulse
+  204  pacman -S pavucontrol
+  205  bluetoothctl
+  206  rfkill
+  207  sudo systemctl stop bluetooth
+  208  systemctl stop bluetooth
+  209  bluetoothctl
+  210  systemctl start bluetooth
+  211  bluetoothctl
+  212  blueman-manager 
+  213  reboot
+  214  systemctl start bluetooth
+  215  pacman -S pulseaudio-alsa pulseaudio-bluetooth bluez-utils
+  216  reboot
+  217  systemctl start bluetooth
+  218  bluetoothctl
+  219  systemctl stop bluetooth
+  220  systemctl stop pulseaudio
+  221  systemctl stop pulseaudiod
+  222  pacman -S bluez bluez-utils
+  223  pacman -S 
+  224  pacman -S bluez bluez-hid2hci
+  225  systemctl start bluetooth
+  226  bluetoothctl
+  227  pacman -Suuy
+  228  rfkill list
+  229  vim /etc/bluetooth/main.conf 
+  230  systemctl restart bluetooth
+  231  bluetoothctl
+  232  systemctl enable bluetooth
+  233  reboot
+  234  systemctl stop bluetooth
+  235  cat qemu-hw-usb-host 
+  236  cat /tmp/Barrier.DifIYS
+  237  vim barrier.conf
+  238  barriers -c barrier.conf -d
+  239  barriers -c barrier.conf -d debug
+  240  barriers -c barrier.conf --debug debug
+  241  barriers -c barrier.conf --debug
+  242  barriers -c barrier.conf --debug debug
+  243  barriers -c barrier.conf --debug info
+  244  barriers -c barrier.conf --debug DEBUG
+  245  killall barriers
+  246  killall barriers
+  247  killall barriers
+  248  killall barriers
+  249  killall barriers
+  250  killall barriers
+  251  killall barriers
+  252  pacman -S gparted
+  253  gparted /dev/jedric/windows
+  254  history | lvextend
+  255  history | grep lvextend
+  256  lvextend -L +30G /dev/jedric/windows
+  257  vim /etc/pacman.conf 
+  258  pacman -Syu
+  259  pacman -S steam
+  260  adduser cesar
+  261  useradd -m cesar
+  262  su cesar
+  263  pacman -S sudo
+  264  visudo
+  265  pacman -S vi
+  266  visudo
+  267  usermod -a -G sudo cesar
+  268  groupadd sudo
+  269  usermod -a -G sudo cesar
+  270  passwd cesar
+  271  sudo pacman -S ttf-liberation
+  272  steam
+  273  bluetoothctl
+  274  pacman -S bluedevil
+  275  bluetoothctl
+  276  systemctl --user enable pulseaudio
+  277  systemctl --user start pulseaudio
+  278  bluetoothctl
+  279  rfkill list
+  280  history > .history
