@@ -1,6 +1,7 @@
 # Home Lab
 
 Documentacao e "automatizacao" do meu setup de software.
+
 Hardware envolvido:
   - Processador AMD (+GPU integrada)
   - GPU NVIDIA dedicada
