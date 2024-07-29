@@ -1,0 +1,13 @@
+01:00.0 VGA compatible controller [0300]: NVIDIA Corporation GA106 [GeForce RTX 3060 Lite Hash Rate] [10de:2504] (rev a1)
+	Subsystem: Micro-Star International Co., Ltd. [MSI] Device [1462:397d]
+	Kernel driver in use: vfio-pci
+	Kernel modules: nouveau
+--
+0a:00.0 VGA compatible controller [0300]: Advanced Micro Devices, Inc. [AMD/ATI] Cezanne [Radeon Vega Series / Radeon Vega Mobile Series] [1002:1638] (rev c9)
+	Subsystem: ASUSTeK Computer Inc. Device [1043:8809]
+	Kernel driver in use: vfio-pci
+	Kernel modules: amdgpu
+0a:00.1 Audio device [0403]: Advanced Micro Devices, Inc. [AMD/ATI] Renoir Radeon High Definition Audio Controller [1002:1637]
+	Subsystem: ASUSTeK Computer Inc. Device [1043:8809]
+	Kernel driver in use: vfio-pci
+	Kernel modules: snd_hda_intel

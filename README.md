@@ -27,3 +27,8 @@ You can test if the passthrough was sucessfull checking VM's `dmesg` logs.
 
 When ready, you must remove the emulated gpu.
 
+### References
+
+- https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF
+- https://github.com/isc30/ryzen-7000-series-proxmox
+- https://www.reddit.com/r/homelab/comments/b5xpua/the_ultimate_beginners_guide_to_gpu_passthrough/
