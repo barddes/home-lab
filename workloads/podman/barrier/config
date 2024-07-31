@@ -7,7 +7,7 @@ section: screens
 		preserveFocus = false
 		switchCorners = none 
 		switchCornerSize = 0
-	barrier:
+	X11:
 		halfDuplexCapsLock = false
 		halfDuplexNumLock = false
 		halfDuplexScrollLock = false
@@ -22,8 +22,8 @@ end
 
 section: links
 	Windric:
-		right = barrier
-	barrier:
+		right = X11
+	X11:
 		left = Windric
 end
 
