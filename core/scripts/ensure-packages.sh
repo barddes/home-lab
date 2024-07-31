@@ -42,15 +42,4 @@ packages=(
     firewalld cockpit cockpit-machines cockpit-packagekit cockpit-pcp cockpit-podman cockpit-storaged
 )
 
-services_to_enable=(
-    NetworkManager
-    libvirt
-    cockpit
-    sshd
-    podman.socket
-    pmcd pmlogger pmie
-)
-
 pacman -Syy --needed ${packages[@]}
-
-systemctl enable ${services_to_enable[@]}

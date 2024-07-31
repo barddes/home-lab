@@ -35,5 +35,14 @@ softdep nvidia pre: vfio-pci
 # softdep vfio-pci pre: vendor-reset
 EOF
 
+# Update initram and grub
 mkinitcpio -P
 grub-mkconfig -o /boot/grub/grub.cfg
+
+systemctl enable \
+    NetworkManager \
+    libvirt \
+    cockpit \
+    sshd \
+    podman.socket \
+    pmcd pmlogger pmie
