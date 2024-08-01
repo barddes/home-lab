@@ -13,8 +13,11 @@ packages=(
     networkmanager
     
     # # GPU driver and Xorg server
-    # xf86-video-amdgpu mesa amdvlk
-    # xorg-server
+    xf86-video-amdgpu mesa amdvlk
+    xorg-server
+
+    # Minimal desktop
+    openbox ly firefox xterm
 
     # # libvirt
     # iptables-nft
