@@ -2,11 +2,17 @@
 
 set -e
 
+read -p 'Password for root: ' _ && echo $_ | passwd --stdin root
+read -p 'Timezone: ' _ && ln -sf /usr/share/zoneinfo/$_ /etc/localtime || echo >&2 "Timezone not set"
+read -p 'Hostname: ' _ && echo $_hostname > /etc/hostname
+read -p 'Locale [en_US.UTF-8]:' _ && echo ${_:-en_US.UTF-8} >> /etc/locale.gen && locale-gen || echo >&2 "Locale not set"
+read -p 'Keymap: ' _ && echo KEYMAP=$_ >> /etc/vconsole.conf || echo >&2 "Keymap not set"
+
 read -p 'Main user: ' username
 [ -z $username ] && echo >&2 "Username is required" && exit 1
 
 useradd -m $username
-usermod -a -G libvirt,sudo,kvm,wheel
+usermod -a -G libvirt,sudo,kvm,wheel $username
 
 echo "Password for user $username"
 passwd $username
@@ -39,10 +45,10 @@ EOF
 mkinitcpio -P
 grub-mkconfig -o /boot/grub/grub.cfg
 
-systemctl enable \
-    NetworkManager \
-    libvirt \
-    cockpit \
-    sshd \
-    podman.socket \
-    pmcd pmlogger pmie
+# systemctl enable \
+#     NetworkManager \
+#     libvirt \
+#     cockpit \
+#     sshd \
+#     podman.socket \
+#     pmcd pmlogger pmie
