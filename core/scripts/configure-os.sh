@@ -2,16 +2,15 @@
 
 set -e
 
-read -p 'Password for root: ' _ && echo $_ | passwd --stdin root
-read -p 'Timezone: ' _ && ln -sf /usr/share/zoneinfo/$_ /etc/localtime || echo >&2 "Timezone not set"
-read -p 'Hostname: ' _ && echo $_hostname > /etc/hostname
-read -p 'Locale [en_US.UTF-8]:' _ && echo ${_:-en_US.UTF-8} >> /etc/locale.gen && locale-gen || echo >&2 "Locale not set"
-read -p 'Keymap: ' _ && echo KEYMAP=$_ >> /etc/vconsole.conf || echo >&2 "Keymap not set"
-
+read -p 'Password for root: ' _root && echo $_root | passwd --stdin root
+read -p 'Timezone: ' _timezone && ln -sf /usr/share/zoneinfo/$_timezone /etc/localtime || echo >&2 "Timezone not set"
+read -p 'Hostname: ' _hostname && echo $_hostname > /etc/hostname
+read -p 'Locale [en_US]:' _locale && echo "${_locale:-en_US}.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen || echo >&2 "Locale not set"
+(read -p 'Keymap: ' _keymap && [ -n $_keymap ] && echo KEYMAP=$_keymap >> /etc/vconsole.conf) || echo "Keymap not set"
 read -p 'Main user: ' username
-[ -z $username ] && echo >&2 "Username is required" && exit 1
 
 useradd -m $username
+groupadd sudo
 usermod -a -G libvirt,sudo,kvm,wheel $username
 
 echo "Password for user $username"
@@ -19,8 +18,8 @@ passwd $username
 
 # Add grub flags
 grub_flags="iommu=pt initcall_blacklist=sysfb_init pcie_acs_override=downstream,multifunction"
-sed -i -E 's/^GRUB_CMDLINE_LINUX_DEFAULT="(.+)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 '"$grub_flags"' /' /etc/default/grub \
-    || echo >&2 "Error while trying to update grub config" && exit 1
+sed -i -E 's/^GRUB_CMDLINE_LINUX_DEFAULT="(.+)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 "'"$grub_flags"'"/' /etc/default/grub \
+    # || echo >&2 "Error while trying to update grub config" && exit 1
 
 # Blacklist gpu drivers
 cat <<EOF >> /etc/modprobe.d/blacklist.conf
@@ -43,10 +42,11 @@ EOF
 
 # Update initram and grub
 mkinitcpio -P
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=jedric
 grub-mkconfig -o /boot/grub/grub.cfg
 
-# systemctl enable \
-#     NetworkManager \
+systemctl enable \
+    NetworkManager
 #     libvirt \
 #     cockpit \
 #     sshd \
