@@ -19,7 +19,7 @@ spec:
             - name: cloudinitdisk
               disk:
                 bus: virtio
-          autoattachGraphicsDevice: false
+                #           autoattachGraphicsDevice: false
           hostDevices:
           - deviceName: nvidia.com/RTX3060_GPU
             name: gpu

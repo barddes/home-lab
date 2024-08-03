@@ -40,15 +40,8 @@ spec:
         memory:
           guest: 8Gi
         devices:
-          # autoattachGraphicsDevice: false
-          gpus:
-          - deviceName: nvidia.com/GA106_GEFORCE_RTX_3060_LITE_HASH_RATE
-            name: gpu
           rng: {}
           networkInterfaceMultiqueue: true
-          hostDevices:
-          - deviceName: kubevirt.io/storage
-            name: pendrive
           inputs:
             - type: tablet
               bus: virtio
@@ -68,4 +61,4 @@ spec:
       volumes:
       - name: rootdisk
         persistentVolumeClaim:
-          claimName: linux-data
+          claimName: archlinux-iso

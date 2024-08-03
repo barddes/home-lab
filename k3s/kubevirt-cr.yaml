@@ -23,8 +23,9 @@ spec:
     developerConfiguration:
       featureGates:
         - HostDevices
-        - GPU
-        - DisableMDEVConfiguration
+        - VMPersistentState
+        # - GPU
+        # - DisableMDEVConfiguration
   customizeComponents: {}
   imagePullPolicy: IfNotPresent
   workloadUpdateStrategy: {}
