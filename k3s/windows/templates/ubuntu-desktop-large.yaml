@@ -1,0 +1,73 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: archlinux
+  namespace: windows
+  labels:
+    vm.kubevirt.io/template: ubuntu-desktop-large
+    vm.kubevirt.io/template.version: "devel"
+    vm.kubevirt.io/template.revision: "1"
+    app: archlinux
+  annotations:
+    vm.kubevirt.io/validations: |
+      [
+        {
+          "name": "minimal-required-memory",
+          "path": "jsonpath::.spec.domain.memory.guest",
+          "rule": "integer",
+          "message": "This VM requires more memory.",
+          "min": 2147483648
+        }
+      ]
+spec:
+  running: true
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/os: "ubuntu"
+        vm.kubevirt.io/workload: "desktop"
+        vm.kubevirt.io/flavor: "large"
+      labels:
+        kubevirt.io/domain: arch
+        kubevirt.io/size: large
+    spec:
+      architecture: amd64
+      domain:
+        cpu:
+          sockets: 2
+          cores: 1
+          threads: 1
+        memory:
+          guest: 8Gi
+        devices:
+          autoattachGraphicsDevice: false
+          gpus:
+          - deviceName: nvidia.com/RTX3060_GPU
+            name: nvidia-gpu
+          - deviceName: nvidia.com/RTX3060_AUDIO
+            name: nvidia-audio
+          rng: {}
+          networkInterfaceMultiqueue: true
+          hostDevices:
+          - deviceName: kubevirt.io/storage
+            name: pendrive
+          inputs:
+            - type: tablet
+              bus: virtio
+              name: tablet
+          disks:
+          - disk:
+              bus: virtio
+            name: rootdisk
+          interfaces:
+          - masquerade: {}
+            name: default
+            model: virtio
+      terminationGracePeriodSeconds: 180
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - name: rootdisk
+        persistentVolumeClaim:
+          claimName: disk-windows

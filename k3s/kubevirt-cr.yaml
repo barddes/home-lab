@@ -1,0 +1,30 @@
+---
+apiVersion: kubevirt.io/v1
+kind: KubeVirt
+metadata:
+  name: kubevirt
+  namespace: kubevirt
+spec:
+  certificateRotateStrategy: {}
+  configuration:
+    permittedHostDevices:
+      pciHostDevices:
+      - pciVendorSelector: "10de:2504"
+        resourceName: nvidia.com/RTX3060_GPU
+        externalResourceProvider: false
+      - pciVendorSelector: "10de:228e"
+        resourceName: nvidia.com/RTX3060_AUDIO
+        externalResourceProvider: false
+      usb:
+      - resourceName: kubevirt.io/storage
+        selectors:
+        - vendor: "058f"
+          product: "6387"
+    developerConfiguration:
+      featureGates:
+        - HostDevices
+        - GPU
+        - DisableMDEVConfiguration
+  customizeComponents: {}
+  imagePullPolicy: IfNotPresent
+  workloadUpdateStrategy: {}
