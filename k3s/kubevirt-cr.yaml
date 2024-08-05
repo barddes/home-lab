@@ -16,10 +16,27 @@ spec:
         resourceName: nvidia.com/RTX3060_AUDIO
         externalResourceProvider: false
       usb:
-      - resourceName: kubevirt.io/storage
+      - resourceName: hostdev.local/pendrive_16G
         selectors:
         - vendor: "058f"
           product: "6387"
+      - resourceName: hostdev.local/mouse_wireless
+        selectors:
+          - vendor: "046d"
+            product: "c542"
+      - resourceName: hostdev.local/mouse_wirefull
+        selectors:
+          - vendor: "046d"
+            product: "c077"
+      - resourceName: hostdev.local/keyboard_wireless
+        selectors:
+          - vendor: "046d"
+            product: "c545"
+      - resourceName: hostdev.local/keyboard_wirefull
+        selectors:
+          - vendor: "04f3"
+            product: "0103"
+
     developerConfiguration:
       featureGates:
         - HostDevices

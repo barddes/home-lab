@@ -1,0 +1,51 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: ubuntu
+spec:
+  runStrategy: Manual
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: ubuntu
+        kubevirt.io/size: large
+    spec:
+      domain:
+        cpu:
+          cores: 2
+          sockets: 2
+          threads: 2
+        firmware:
+          bootloader:
+            efi:
+              persistent: false
+              secureBoot: false
+        devices:
+          clientPassthrough: {}
+          sound:
+            name: hostaudio
+          autoattachGraphicsDevice: false
+          hostDevices:
+          - deviceName: nvidia.com/RTX3060_GPU
+            name: gpu
+          - deviceName: nvidia.com/RTX3060_AUDIO
+            name: audio
+          disks:
+          - name: rootdisk
+            disk:
+              bus: virtio
+          interfaces:
+          - masquerade: {}
+            name: default
+            model: virtio
+        resources:
+          requests:
+            memory: 12Gi
+      terminationGracePeriodSeconds: 30
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - name: rootdisk
+        persistentVolumeClaim:
+          claimName: ubuntu-disk

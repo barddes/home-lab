@@ -1,0 +1,72 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: windows
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: windows
+        kubevirt.io/size: large
+    spec:
+      domain:
+        cpu:
+          cores: 2
+          sockets: 2
+          threads: 2
+        firmware:
+          bootloader:
+            efi:
+              persistent: true
+              secureBoot: false
+        devices:
+          tpm: {}
+          clientPassthrough: {}
+          autoattachGraphicsDevice: false
+          hostDevices:
+          - deviceName: nvidia.com/RTX3060_GPU
+            name: gpu
+          - deviceName: nvidia.com/RTX3060_AUDIO
+            name: audio
+          disks:
+          - name: windows-iso
+            disk:
+              bus: sata
+          - name: virtio
+            cdrom:
+              bus: sata
+              readonly: true
+          - name: rootdisk
+            disk:
+              bus: sata
+          interfaces:
+          - masquerade: {}
+            name: default
+            model: virtio
+        resources:
+          requests:
+            memory: 12Gi
+        features:
+          acpi: {}
+          apic: {}
+          hyperv:
+            relaxed: {}
+            spinlocks:
+              spinlocks: 8191
+            vapic: {}
+          smm: {}
+      terminationGracePeriodSeconds: 30
+      networks:
+      - name: default
+        pod: {}
+      volumes:
+      - name: windows-iso
+        persistentVolumeClaim:
+          claimName: windows-iso
+      - name: virtio
+        persistentVolumeClaim:
+          claimName: virtio-iso
+      - name: rootdisk
+        persistentVolumeClaim:
+          claimName: block-pvc
