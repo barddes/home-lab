@@ -44,6 +44,8 @@ packages=(
     openssh ranger sudo texinfo unzip vi vim wget zip xorg-xclock make man-db man-pages git jq yq
     # firewalld cockpit cockpit-machines cockpit-packagekit cockpit-pcp cockpit-podman cockpit-storaged
     # barrier
+    
+    cilium-cli
 )
 
 pacman -Syy --needed ${packages[@]}

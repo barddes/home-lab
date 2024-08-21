@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: adguard-config
+  namespace: adguard
+data:
+  config.yaml: |
+    theme: auto
+    dns:
+      bind_hosts:
+        - 0.0.0.0
+      port: 53
+      upstream_dns:
+        - 8.8.8.8
+        - 1.1.1.1
+    filtering:
+      rewrites:
+        - domain: '*.jedric.local'
+          answer: 192.168.3.104
+    log:
+      enabled: true
+

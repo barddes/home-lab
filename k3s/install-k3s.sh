@@ -2,6 +2,18 @@
 set -e
 set -o noglob
 
+sudo mkdir -p /etc/rancher/k3s
+internal_ip=$(ip addr | grep 192.168 | head -n 1 | sed -E 's|.+(192\.168\..+)/.+|\1|')
+echo INTERNAL_IP=$internal_ip
+cat <<EOF | sudo tee /etc/rancher/k3s/config.yaml
+write-kubeconfig-mode: "0644"
+# disable: "traefik"
+# tls-san:
+#   - "$internal_ip"
+EOF
+
+# export INSTALL_K3S_EXEC='--flannel-backend=none --disable-network-policy'
+
 # Usage:
 #   curl ... | ENV_VAR=... sh -
 #       or

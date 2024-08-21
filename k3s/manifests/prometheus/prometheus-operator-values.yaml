@@ -1,0 +1,38 @@
+---
+apiVersion: helm.cattle.io/v1
+kind: HelmChartConfig
+metadata:
+  name: prometheus-operator
+  namespace: kube-system
+spec:
+  valuesContent: |-
+    defaultRules:
+      create: false
+    alertmanager:
+      enabled: true
+    grafana:
+      enabled: true
+    kubeApiServer:
+      enabled: true
+    kubelet:
+      enabled: true
+    kubeControllerManager:
+      enabled: true
+    coreDns:
+      enabled: true
+    kubeDns:
+      enabled: true
+    kubeEtcd:
+      enabled: true
+    kubeScheduler:
+      enabled: true
+    kubeProxy:
+      enabled: true
+    kubeStateMetrics:
+      enabled: true
+    nodeExporter:
+      enabled: true
+    prometheusOperator:
+      enabled: true
+    prometheus:
+      enabled: true
